@@ -4,10 +4,11 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://github.com/cse110-sp25-team18/cse110-sp25-team18.github.io',
 	integrations: [
 		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			title: 'Team 18',
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/cse110-sp25-team18' }],
 			sidebar: [
 				{
 					label: 'Guides',
