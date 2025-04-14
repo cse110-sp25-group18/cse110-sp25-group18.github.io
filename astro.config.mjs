@@ -7,7 +7,7 @@ export default defineConfig({
 	site: 'https://cse110-sp25-group18.github.io',
 	integrations: [
 		starlight({
-			title: 'Team 18',
+			title: 'SpongeScript SquarePants',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/cse110-sp25-team18' }],
 			sidebar: [
 				{
