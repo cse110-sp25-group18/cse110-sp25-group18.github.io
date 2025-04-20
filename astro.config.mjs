@@ -15,6 +15,7 @@ export default defineConfig({
 					items: [
 						// Each item here is one entry in the navigation menu.
 						{ label: 'Workflow', slug: 'guides/workflow' },
+						{ label: 'Warmup Exercise', slug: 'warmup-exercise/develop' },
 					],
 				},
 			],

@@ -1,0 +1,133 @@
+---
+title: Development Documentation
+---
+
+import { FileTree } from '@astrojs/starlight/components'
+
+## Architecture Overview
+
+This document outlines the architecture of the card game application, which follows the Model-View-Controller (MVC) architectural pattern with a clear separation between System and Player components.
+
+## Project Structure
+
+<FileTree>
+- index.html
+- rules.html
+- style
+   - base.css
+   - card.css
+- script
+   - main.js                 # Application entry point
+   - card.js                 # Card factory for creating card components
+   - rules.js                # Rules page functionality
+   - controllers
+      - GameController.js   # Main game controller
+      - CardController.js   # Card component controller
+   - models
+      - SystemModel.js      # System logic and state
+      - PlayerModel.js      # Player logic and state
+      - CardModel.js        # Card data model
+   - views
+      - SystemView.js       # System UI representation
+      - PlayerView.js       # Player UI representation
+      - CardView.js         # Card UI component
+</FileTree>
+
+## Architectural Patterns
+
+### MVC Architecture
+
+The application follows the Model-View-Controller pattern:
+
+- **Models**: Responsible for data management and business logic
+  - `SystemModel.js`: Manages deck, game rules, and calculations
+  - `PlayerModel.js`: Manages player and dealer hands and states
+  - `CardModel.js`: Represents a card's data (suit, rank, state)
+
+- **Views**: Handle UI rendering and user interaction
+  - `SystemView.js`: Renders system components (deck, counters, admin controls)
+  - `PlayerView.js`: Renders player components (hands, action buttons)
+  - `CardView.js`: Custom element for rendering individual cards
+
+- **Controllers**: Coordinate models and views
+  - `GameController.js`: Main controller orchestrating game flow
+  - `CardController.js`: Controls individual card behavior
+
+### Factory Pattern
+
+The `CardFactory` in `card.js` implements the factory pattern to create cards:
+- Creates card components with proper MVC structure
+- Registers custom elements
+- Provides convenience methods for card creation
+
+## Initialization Flow
+
+1. The application starts in `main.js` when the DOM is loaded
+2. `GameController` is instantiated, which:
+   - Creates models (SystemModel, PlayerModel)
+   - Creates views (SystemView, PlayerView)
+   - Initializes the game by creating and shuffling a deck
+   - Binds event handlers
+
+## Game Flow
+
+1. **Game Initialization**:
+   - Deck is created with 52 cards (4 suits × 13 ranks)
+   - Cards are arranged in a stack
+   - UI counters are updated
+
+2. **New Game**:
+   - Hands are cleared
+   - Initial cards are dealt (2 to player, 2 to dealer with one face down)
+   - Blackjack checks are performed
+
+3. **Player Turn**:
+   - Player can Hit (take another card) or Stand (end turn)
+   - Bust condition is checked after each Hit
+
+4. **Dealer Turn**:
+   - Dealer reveals face-down card
+   - Dealer draws cards according to rules (hits until 17+)
+   - Bust condition is checked after each draw
+
+5. **End Game**:
+   - Winner is determined
+   - Results are displayed
+   - Game can be reset or a new game started
+
+## Component Interaction
+
+- `GameController` orchestrates all game components
+- Card interactions are managed through `CardController`
+- Models communicate state changes to controllers
+- Controllers update views based on model changes
+- Views trigger events that controllers handle
+
+## UI Components
+
+- **System Components**: Deck, card counter, admin controls, game controls
+- **Player Components**: Player hand, dealer hand, action buttons
+- **Card Components**: Individual cards with flip animation
+
+## Event Handling
+
+The application uses a centralized event handling approach:
+- Events are bound in the `GameController`
+- Views expose methods to bind handlers
+- Controllers process events and update models/views accordingly
+
+## Custom Elements
+
+The application uses Web Components:
+- `CardView` is registered as a custom element (`card-element`)
+- This allows encapsulation of card behavior and styling
+
+## Future Development
+
+For future development, consider:
+
+1. Adding more game variants
+2. Implementing player accounts and statistics
+3. Adding multiplayer functionality
+4. Enhancing animations and visual effects
+5. Implementing advanced betting mechanics 
